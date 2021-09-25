@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { FormBuilder } from "@angular/forms";
 import { SpacexService } from "../core/services/spacex.service";
 
 @Component({
@@ -7,23 +7,62 @@ import { SpacexService } from "../core/services/spacex.service";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit {
-  selector: string = ".main-panel";
-  launches: any = [];
+export class HomeComponent {
+  isLoading = false;
+  launches: any[] = [];
+  data: any[] = [];
+  sum = 10;
+  direction = "";
 
-  onScroll() {
-    console.log("scrolled!!");
-  }
-  constructor(private _spacexService: SpacexService) {}
+  form = this.fb.group({
+    search: [null],
+  });
 
-  ngOnInit() {
+  constructor(private _spacexService: SpacexService, private fb: FormBuilder) {
+    this.isLoading = true;
     this._spacexService.getCapsules().subscribe((data) => {
-      this.launches = data;
-      console.log(this.launches);
+      this.data = data;
+
+      this.isLoading = false;
+      this.appendItems(0, this.sum);
+    });
+
+    this.search.valueChanges.subscribe((change) => {
+      console.log(change);
     });
   }
 
+  get search(): any {
+    return this.form.get("search");
+  }
+
+  ngOnInit() {}
+
   toggle(i) {
     this.launches[i].isShow = !this.launches[i].isShow;
+  }
+
+  onScrollDown(ev: any) {
+    const start = this.sum;
+    this.sum += 10;
+    this.appendItems(start, this.sum);
+  }
+
+  appendItems(startIndex, endIndex) {
+    this.addItems(startIndex, endIndex, "push");
+  }
+
+  prependItems(startIndex, endIndex) {
+    this.addItems(startIndex, endIndex, "unshift");
+  }
+
+  addItems(startIndex?, endIndex?, _method?) {
+    this.isLoading = true;
+    if (this.sum <= this.data.length) {
+      for (let i = startIndex; i < this.sum; ++i) {
+        this.launches[_method](this.data[i]);
+      }
+    }
+    this.isLoading = false;
   }
 }
