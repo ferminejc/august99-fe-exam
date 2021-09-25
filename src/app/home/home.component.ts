@@ -26,10 +26,6 @@ export class HomeComponent {
       this.isLoading = false;
       this.appendItems(0, this.sum);
     });
-
-    this.search.valueChanges.subscribe((change) => {
-      console.log(change);
-    });
   }
 
   get search(): any {
