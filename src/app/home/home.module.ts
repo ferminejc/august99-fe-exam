@@ -20,9 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     InfiniteScrollModule,
     HomeRoutingModule,
+    TimeagoModule.forRoot(),
     Ng2SearchPipeModule,
     ReactiveFormsModule,
-    TimeagoModule.forRoot(),
   ],
   providers: [SpacexService]
 })

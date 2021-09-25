@@ -14,7 +14,7 @@
     class="main-panel"
     infinite-scroll
     [scrollWindow]="false"
-    (scrolled)="onScrollDown($event)"
+    (scrolled)="onScrollDown()"
   >
     <ng-container *ngIf="launches && !isLoading">
       <div
