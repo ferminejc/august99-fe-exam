@@ -55,14 +55,19 @@
               [src]="launch.links.mission_patch_small"
               *ngIf="launch.links.mission_patch_small; else noImageYet"
             />
-            <ng-template #noImageYet> No image yet. </ng-template>
+            <ng-template #noImageYet>
+              <div class="mr-3">No image yet.</div>
+            </ng-template>
 
-            <caption *ngIf="launch.details; else noDetailsYet" class="card-description">
+            <caption
+              *ngIf="launch.details; else noDetailsYet"
+              class="card-description"
+            >
               {{
                 launch.details
               }}
             </caption>
-            <ng-template #noDetailsYet> No details yet. </ng-template>
+            <ng-template #noDetailsYet> </ng-template>
           </div>
           <button type="button" class="btn btn-primary" (click)="toggle(i)">
             {{ launch?.isShow ? "Hide" : "View" }}
@@ -73,6 +78,6 @@
     <ng-template #loadingTemplate>
       <app-spinner></app-spinner>
     </ng-template>
-    <div *ngIf="sum >= data.length" class="center"> End of Content </div>
+    <div *ngIf="sum >= data.length" class="center">End of Content</div>
   </div>
 </div>
