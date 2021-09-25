@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 import { SpacexService } from "../core/services/spacex.service";
 
 @Component({
@@ -8,6 +9,7 @@ import { SpacexService } from "../core/services/spacex.service";
 })
 export class HomeComponent implements OnInit {
   selector: string = ".main-panel";
+  launches: any = [];
 
   onScroll() {
     console.log("scrolled!!");
@@ -16,7 +18,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._spacexService.getCapsules().subscribe((data) => {
-      console.log(data);
+      this.launches = data;
+      console.log(this.launches);
     });
+  }
+
+  toggle(i) {
+    this.launches[i].isShow = !this.launches[i].isShow;
   }
 }

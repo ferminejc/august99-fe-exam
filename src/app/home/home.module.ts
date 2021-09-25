@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HttpClientModule } from '@angular/common/http';
 import { SpacexService } from '../core/services/spacex.service';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -13,7 +14,8 @@ import { SpacexService } from '../core/services/spacex.service';
     CommonModule,
     HttpClientModule,
     InfiniteScrollModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    TimeagoModule.forRoot(),
   ],
   providers: [SpacexService]
 })

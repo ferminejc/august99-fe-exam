@@ -1,10 +1,57 @@
-<div class="main-panel jumbotron">
-  <div
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
-    [infiniteScrollContainer]="selector"
-    [fromRoot]="true"
-    (scrolled)="onScroll()"
-  ></div>
+<div class="container">
+  <form>
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="search-input"
+        aria-describedby="searchArea"
+        placeholder="Search..."
+      />
+    </div>
+  </form>
+  <div class="main-panel">
+    <div
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      [infiniteScrollContainer]="selector"
+      [fromRoot]="true"
+      (scrolled)="onScroll()"
+    >
+      <ng-container *ngFor="let launch of launches; let i = index">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <h5 class="card-title">{{ launch.mission_name }}</h5>
+              <span
+                class="card-status"
+                [ngClass]="{
+                  upcoming: launch.upcoming === false,
+                  success: launch.upcoming === true
+                }"
+                >{{ launch.upcoming ? "success" : "upcoming" }}</span
+              >
+            </div>
+            <div class="d-flex align-items-center time-ago-and-link mb-3">
+              <span>{{ launch.launch_date_utc | timeago }}</span>
+              <span>|</span>
+              <span
+                ><a [href]="launch.links.video_link" target="_blank"
+                  >Video</a
+                ></span
+              >
+            </div>
+            <div *ngIf="launch?.isShow" class="d-flex mb-3">
+              <img class="img-responsive" [src]="launch.links.mission_patch_small"/>
+              <caption>{{launch.details}}</caption>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="toggle(i)">
+              {{ launch.isShow ? "Hide" : "View" }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>
