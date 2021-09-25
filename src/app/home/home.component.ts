@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { SpacexService } from "../core/services/spacex.service";
 
@@ -28,17 +28,13 @@ export class HomeComponent {
     });
   }
 
-  get search(): any {
-    return this.form.get("search");
-  }
-
   ngOnInit() {}
 
   toggle(i) {
     this.launches[i].isShow = !this.launches[i].isShow;
   }
 
-  onScrollDown(ev: any) {
+  onScrollDown() {
     const start = this.sum;
     this.sum += 10;
     this.appendItems(start, this.sum);
@@ -60,5 +56,9 @@ export class HomeComponent {
       }
     }
     this.isLoading = false;
+  }
+
+  get search(): any {
+    return this.form.get("search");
   }
 }

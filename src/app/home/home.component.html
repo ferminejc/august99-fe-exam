@@ -57,7 +57,7 @@
             />
             <ng-template #noImageYet> No image yet. </ng-template>
 
-            <caption *ngIf="launch.details; else noDetailsYet">
+            <caption *ngIf="launch.details; else noDetailsYet" class="card-description">
               {{
                 launch.details
               }}
